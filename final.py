@@ -7,14 +7,12 @@ import threading
 from smbus import SMBus
 import paho.mqtt.client as mqtt
 import smtplib
-sender_email='navdeeprandhawa0001@gmail.com'
-password='Pass@2019'
-def EMAIL():
+sender_email='****************@gmail.com'
+password='********'
+def EMAIL()://direct email from the system to user using python
     server=smtplib.SMTP('smtp.gmail.com',587)
     server.starttls()
-
     server.login(sender_email,password)
-
     print("Login success")
     message="INTRUDER IN PREMISES"
     print (message)
@@ -23,7 +21,7 @@ def EMAIL():
 addr = 0x9 # bus address
 bus_ = SMBus(1) # indicates /dev/ic2-1
  
-def LIGHT():
+def LIGHT()://switch on the led light in the premises using microcontroller(arduino)
      bus_.write_byte(addr, 0x1) # switch it on
      time.sleep(10)
      bus_.write_byte(addr, 0x0) # switch it on
@@ -52,14 +50,14 @@ minH = 0.1*cam.get(4)
 
 
 
-def MQTT():
+def MQTT()://publish the data to cloud that the motion is detected
     ourClient=mqtt.Client("NAVDEEP_mqtt")
     ourClient.connect("test.mosquitto.org",1883)
     ourClient.publish("argonLOG","ButtonHasBeenPressed")
     ourClient.loop_start()
     while 1:
         time.sleep(1)
-def DETECTION():
+def DETECTION()://function to detect and recognise the face
     while True:
         ret, img =cam.read()
         img = cv2.flip(img, -1) # Flip vertically
@@ -112,7 +110,7 @@ def DETECTION():
     
 
 
-def ALARM(pirPIN):
+def ALARM(pirPIN)://function called when the motion is detected in the premises
     print("Motion detected")
     t1=threading.Thread(target=MQTT)# this sends signal to the argon(in practical case would be security provider)
     t2=threading.Thread(target=LIGHT)# this turns on the led of the house on for some period of time, this enables camera to work
