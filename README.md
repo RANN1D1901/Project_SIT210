@@ -31,3 +31,10 @@ Machine Learning to Recognise Faces:
 Conclusion:
 After executing all the files directed in this document, make the connections shown in circuit diagram and run the final.py code on raspberry pi and the system would start working.
 
+
+
+
+Making System Responsive by Using Multithreading:
+1)	The face recognition and sensing motion were to be conducted so that both run concurrently in least amount of time, this was achieve through multithreading while making function calls.
+2)	The response to the detected motion in the premises needed to be very quick so for that while creating an alarm system, the MQTT() and LIGHT() functions were called with use of multithreading so that both the events are triggered as quickly as possible allowing other functionalities in code to be performed.
+
